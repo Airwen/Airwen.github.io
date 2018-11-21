@@ -77,7 +77,7 @@ downloader 调用序列:
 
 引用关系图
 
-![refrences](https://qcloud.coding.net/api/project/3905697/files/4458486/imagePreview)
+![refrences](https://dn-coding-net-production-file.codehub.cn/6f838fe0-ed5b-11e8-ad0e-e38b74016731.png?e=1542789476&token=goE9CtaiT5YaIP6ZQ1nAafd_C1Z_H2gVP8AwuC-5:e12d0f1f90lNsthJI5b3sqOfeec=)
 
 > SDWebImageCombinedOperation : NSObject <SDWebImageOperation> //内部
 > 每个视图类都有管理自己的任务管理队列在`loadOperationKey`
