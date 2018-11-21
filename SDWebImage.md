@@ -72,7 +72,7 @@ return operation
 
 downloader 调用序列:
 
-![sd downloader image](https://qcloud.coding.net/api/project/3905697/files/4458481/imagePreview)
+![sd downloader image](https://dn-coding-net-production-file.codehub.cn/6f7e38b0-ed5b-11e8-ad0e-e38b74016731.png?e=1542789645&token=goE9CtaiT5YaIP6ZQ1nAafd_C1Z_H2gVP8AwuC-5:bAkn-A0PxdQsJ1iUJA_h-FSGLbo=)
 
 
 引用关系图
@@ -86,7 +86,7 @@ downloader 调用序列:
 
 创建下载Operation，并肩Operation添加到`downloadQueue`中的调用栈:
 
-![refrences](https://qcloud.coding.net/api/project/3905697/files/4458481/imagePreview)
+![refrences](https://dn-coding-net-production-file.codehub.cn/6f82cc90-ed5b-11e8-ad0e-e38b74016731.png?e=1542789274&token=goE9CtaiT5YaIP6ZQ1nAafd_C1Z_H2gVP8AwuC-5:dEgj8s6S6O85F2e2adXQqzvOh64=)
 
 `SDWebImageManager`的对象结构
 
