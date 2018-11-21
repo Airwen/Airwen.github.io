@@ -302,23 +302,23 @@ Xcode 9默认选项是`-Os`。
 
 《深入理解计算机系统》书里的列出了这16个寄存器.它们的名字都是以`%r`来头，不过后面还跟着一些不同的命名规则的名字，这是有指令集历史演化造成的。
 
- bit index  | 63       | 31       | 15       | 7      0 |   作用     	|
------------ | -------- | -------- | -------- | -------- | ------------- |
-            |   %rax   |    %eax  |   %ax    |   %al    |   返回值   	|
-            |   %rbx   |    %ebx  |   %bx    |   %bl    |  被调用者保存   |
-            |   %rcx   |    %ecx  |   %cx    |   %cl    |   第4个参数    |
-            |   %rdx   |    %edx  |   %dx    |   %dl    |   第3个参数    |
-            |   %rsi   |    %esi  |   %si    |   %sil   |   第2个参数    |
-            |   %rdi   |    %edi  |   %di    |   %dil   |   第1个参数    |
-            |   %rbp   |    %ebp  |   %bp    |   %bpl   |  被调用者保存   |
-            |   %r8    |    %r8d  |   %r8w   |   %r8b   |   第5个参数    |
-            |   %r9    |    %r9d  |   %r9w   |   %r9b   |   第6个参数    |
-            |   %r10   |   %r10d  |   %r10w  |   %r10b  |   调用者保存   |
-            |   %r11   |   %r11d  |   %r11w  |   %r11b  |   调用者保存   |
-            |   %r12   |   %r12d  |   %r12w  |   %r12b  |  被调用者保存   |
-            |   %r13   |   %r13d  |   %r13w  |   %r13b  |  被调用者保存   |
-            |   %r14   |   %r14d  |   %r14w  |   %r14b  |  被调用者保存   |
-            |   %r15   |   %r15d  |   %r15w  |   %r15b  |  被调用者保存   |
+ bit index  | 63       | 31       | 15       | 7      0 |   作用         
+----------- | -------- | -------- | -------- | -------- | ------------- 
+            |   %rax   |    %eax  |   %ax    |   %al    |   返回值       
+            |   %rbx   |    %ebx  |   %bx    |   %bl    |  被调用者保存   
+            |   %rcx   |    %ecx  |   %cx    |   %cl    |   第4个参数    
+            |   %rdx   |    %edx  |   %dx    |   %dl    |   第3个参数    
+            |   %rsi   |    %esi  |   %si    |   %sil   |   第2个参数    
+            |   %rdi   |    %edi  |   %di    |   %dil   |   第1个参数    
+            |   %rbp   |    %ebp  |   %bp    |   %bpl   |  被调用者保存   
+            |   %r8    |    %r8d  |   %r8w   |   %r8b   |   第5个参数    
+            |   %r9    |    %r9d  |   %r9w   |   %r9b   |   第6个参数    
+            |   %r10   |   %r10d  |   %r10w  |   %r10b  |   调用者保存   
+            |   %r11   |   %r11d  |   %r11w  |   %r11b  |   调用者保存   
+            |   %r12   |   %r12d  |   %r12w  |   %r12b  |  被调用者保存  
+            |   %r13   |   %r13d  |   %r13w  |   %r13b  |  被调用者保存   
+            |   %r14   |   %r14d  |   %r14w  |   %r14b  |  被调用者保存   
+            |   %r15   |   %r15d  |   %r15w  |   %r15b  |  被调用者保存   
 
 > 整数寄存器，所有16个寄存器的低位部分都可以作为字节、字（16bit）、双字（32bit）、四字（64bit）数字来访问
 > 引用自《深入理解计算机系统》—— Randal E. Bryant & David R.O'Hallaron 机械工业出版社 P119～120 3.4章节。
@@ -375,4 +375,35 @@ Where I will go on (应该是看看孙源推荐的基本资料开始探索吧)�
 * <http://szelei.me/code-generator/>
 * 《Getting Started with LLVM Core Libraries》
 * 《LLVM Cookbook》
+
+然后是试着实现下面的东东：
+
+了解在Clang上做的更多的事情：
+
+* LibClang
+  
+  * C API 来访问Clang的上层能力：获取Token、遍历语法树、补全代码、获取诊断信息
+  * API稳定，不受Clang源码的更新影响
+  * 只有上层的语法树访问，不能获取到全部信息
+  * 使用原始的C API
+  * 脚本语言：使用官方提供的python binding或开源的 node-js/ruby binding
+  * Objective-C：开源库ClangKit
+
+     ⽤用 LibClang 的 Python Binding 实现⼀一个 Property Name Linter
+
+* LibTooling
+
+  * 对语法树有完全的控制权
+  * 可作为一个standalone命令单独的使用，如clang format
+  * 需要使用C++且对Clang源码熟悉
+  
+    实现⼀一个简易易 Objective-C -> Swift 源码转换器器
+
+* ClangPlugin
+
+  * 对语法树有完全的控制权
+  * 作为插件注⼊入到编译流程中，可以影响 build 和决定编译过程
+  * 需要使⽤用 C++ 且对 Clang 源码熟悉
+  
+      可以嵌⼊入 Xcode 的 Linter，提供可识别的诊断信息
 
