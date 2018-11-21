@@ -133,6 +133,24 @@ AssociationsHashMap
 
 答： 关联对象对象放在了全局的AssociationsHashMap中，并不是放在被关联对象本身的内存中（所以关联对象并不是一个类的实例变量-ivar）。
     所以类的内存的大小是在编译时期就决定了，而类的实例变量是通过对象的指针和相应的offset查找的。
+    原类或者Extension中的property是getter+setter+ivar；
+    Category可以声明property，但是需要实现getter和setter方法，具体怎么实现要程序员要扩展什么？可以是getter/setter一个关联对象；读写磁盘上的某个数据；某个计算表达式的结果。
+    
+由property联想的题外话，具体看[这里](https://github.com/ibireme/YYModel/issues/30)的讨论：
+
+property，自上至下主要有 3 种方法：KVC、getter/setter(Accessor Methods)、ivar。
+
+1. KVC 兼容性最好，它会尝试用 getter/setter，失败时则直接访问 ivar。缺点是性能差，非对象类型需要包装成值对象。
+2. getter/setter 性能最高，和直接手动访问属性性能相同。缺点就是运行时代码写起来太麻烦。
+3. ivar 访问时，性能并不比 getter/setter 高，而且对没有 ivar 的 property 无效，另外相对上面两种方法，它不支持 CoreData 或其他 dynamic 属性的对象。
+
+为什么，ivar 性能并不比 getter/setter 高？
+通常，在 OC 中直接访问 ivar，是通过 object_getIvar() object_setIvar() 来进行的，我测试过这两个方法性能并不高。getter/setter 是直接通过编译时对象 struct 内存地址偏移来访问的，性能自然很高。
+
+通过 OC 运行时实际上也能获得属性在对象 struct 里的地址偏移，是一个 ptrdiff_t 类型的数值，但我没见过有人能用这个值来直接访问内存地址。一方面 OC 对象的结构并不是公开的，而且在过去也经过好几次的变更；另一方面，如果通过 ivar 访问，那 assign、weak、strong 等逻辑都需要自己实现一遍。
+
+代码里直接访问 self 的 ivar，是编译后通过地址偏移访问的。self.property 比直接访问 _propertyName 多了个函数调用，但实际性能都很高不用担心。
+
 
 第二个问题的探索，就是针对关联对象的内存管理：
 
