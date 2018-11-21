@@ -161,7 +161,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 > 至于静态类型，是在编译时做检查。当在代码中使用 ARC 时，编译器在编译期间，会做许多的类型检查：因为编译器需要知道哪个对象该如何使用。例如，如果 myObject 没有 hello 方法，那么就不能写如下这行代码了`[myObject hello]`
 
 
-###代码生成
+### 代码生成
 
 IR代码生成，CodeGen负责根据生成的语法树从顶至下遍历，翻译成LLVM IR —— LLVM的一个中间语言。
 LLVM IR是(编译器)Frontend的输出，也是LLVM Backend的输入，前后端的桥接语言。
@@ -230,13 +230,13 @@ Xcode 9默认选项是`-Os`。
 
 ### 汇编代码 - 生成Target相关的汇编代码`.s`
 
-我们可以用下面的命令让`clang`输出汇编代码，这有[helloworld.c]()生成了一个简单的汇编码文件[helloworld.s]()：
+我们可以用下面的命令让`clang`输出汇编代码：
 
-`xcrun clang -S -o - helloworld.c | open -f`
+`xcrun clang -S -o - xxx.c | open -f`
 
 或
 
-`clang -S -fobjc-arc mian.m -o main.s`
+`clang -S -fobjc-arc yyy.m -o yyy.s`
 
 编译器选项：
 
@@ -363,15 +363,16 @@ total 0x100003000
 
 Where I will go on (应该是看看孙源推荐的基本资料开始探索吧)：
 
- Clang-LLVM 相关资料料
-• <http://clang.llvm.org/docs/index.html>
-• <http://blog.llvm.org/>
-• <https://www.objc.io/issues/6-build-tools/compiler/>
-• <http://llvm.org/docs/tutorial/index.html>
-• <https://github.com/loarabia/Clang-tutorial>
-• <http://lowlevelbits.org/getting-started-with-llvm/clang-on-os-x/>
-• <https://kevinaboos.wordpress.com/2013/07/23/clang-tutorial-part-i-introduction/>
-• <http://szelei.me/code-generator/>
-• 《Getting Started with LLVM Core Libraries》
-• 《LLVM Cookbook》
+ Clang-LLVM 相关资料料:
+ 
+* <http://clang.llvm.org/docs/index.html>
+* <http://blog.llvm.org/>
+* <https://www.objc.io/issues/6-build-tools/compiler/>
+* <http://llvm.org/docs/tutorial/index.html>
+* <https://github.com/loarabia/Clang-tutorial>
+* <http://lowlevelbits.org/getting-started-with-llvm/clang-on-os-x/>
+* <https://kevinaboos.wordpress.com/2013/07/23/clang-tutorial-part-i-introduction/>
+* <http://szelei.me/code-generator/>
+* 《Getting Started with LLVM Core Libraries》
+* 《LLVM Cookbook》
 
