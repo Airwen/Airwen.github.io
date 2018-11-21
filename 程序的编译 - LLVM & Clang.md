@@ -157,9 +157,9 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 静态分析阶段，除了类型检查外，还会做许多其它一些分析。如果你把 clang 的代码仓库 clone 到本地，然后进入目录 lib/StaticAnalyzer/Checkers，你会看到所有静态检查内容,[*Unofficial* Automated Mirror of LLVM on Github](https://github.com/llvm-mirror)。
  
 > 静态和动态类型检查
-
 > 一般会把类型分为两类：动态的和静态的。动态的在运行时做检查，静态的在编译时做检查。以往，编写代码时可以向任意对象发送任何消息，在运行时，才会检查对象是否能够响应这些消息。由于只是在运行时做此类检查，所以叫做动态类型。
 > 至于静态类型，是在编译时做检查。当在代码中使用 ARC 时，编译器在编译期间，会做许多的类型检查：因为编译器需要知道哪个对象该如何使用。例如，如果 myObject 没有 hello 方法，那么就不能写如下这行代码了`[myObject hello]`
+
 
 ###代码生成
 
@@ -230,7 +230,7 @@ Xcode 9默认选项是`-Os`。
 
 ### 汇编代码 - 生成Target相关的汇编代码`.s`
 
-我们可以用下面的命令让`clang`输出汇编代码：
+我们可以用下面的命令让`clang`输出汇编代码，这有[helloworld.c]()生成了一个简单的汇编码文件[helloworld.s]()：
 
 `xcrun clang -S -o - helloworld.c | open -f`
 
@@ -361,5 +361,17 @@ total 0x100003000
 
 生成可执行文件Executable
 
+Where I will go on (应该是看看孙源推荐的基本资料开始探索吧)：
 
+ Clang-LLVM 相关资料料
+• <http://clang.llvm.org/docs/index.html>
+• <http://blog.llvm.org/>
+• <https://www.objc.io/issues/6-build-tools/compiler/>
+• <http://llvm.org/docs/tutorial/index.html>
+• <https://github.com/loarabia/Clang-tutorial>
+• <http://lowlevelbits.org/getting-started-with-llvm/clang-on-os-x/>
+• <https://kevinaboos.wordpress.com/2013/07/23/clang-tutorial-part-i-introduction/>
+• <http://szelei.me/code-generator/>
+• 《Getting Started with LLVM Core Libraries》
+• 《LLVM Cookbook》
 
